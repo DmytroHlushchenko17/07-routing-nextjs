@@ -48,3 +48,18 @@ export async function fetchNoteById(id: string): Promise<Note> {
   const { data } = await api.get<Note>(`/notes/${id}`);
   return data;
 }
+
+export const getCategories = async (): Promise<Note[]> => {
+  const res = await api.get<Note[]>(`/notes/tag`);
+  console.log(res);
+  return res.data;
+};
+
+export const getNotes = async (
+  categoryId?: string | undefined
+): Promise<Note[]> => {
+  const res = await api.get<Note[]>("/notes", {
+    params: { categoryId },
+  });
+  return res.data;
+};
