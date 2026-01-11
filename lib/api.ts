@@ -49,17 +49,10 @@ export async function fetchNoteById(id: string): Promise<Note> {
   return data;
 }
 
-export const getCategories = async (): Promise<Note[]> => {
-  const { data } = await api.get<Note[]>(`/notes/tag`);
-  console.log(data);
-  return data;
-};
-
-export const getNotes = async (
-  categoryId?: string | undefined
-): Promise<Note[]> => {
-  const res = await api.get<FetchNotesResponse>("/notes", {
-    params: { categoryId },
+export const getNotes = async (tag?: string | undefined): Promise<Note[]> => {
+  const { data } = await api.get<FetchNotesResponse>("/notes", {
+    params: { perPage: 12 },
   });
-  return res.data.notes;
+  if (!tag) return data.notes;
+  return data.notes.filter((note) => note.tag === tag);
 };
