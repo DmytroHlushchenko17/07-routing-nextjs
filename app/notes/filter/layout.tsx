@@ -5,9 +5,9 @@ type Props = {
 
 const NotesLayout = ({ children, sidebar }: Props) => {
   return (
-    <section>
-      <aside>{sidebar}</aside>
-      <div>{children}</div>
+    <section className="container">
+      <aside className="sidebar">{sidebar}</aside>
+      <div className="notesWrapper">{children}</div>
     </section>
   );
 };

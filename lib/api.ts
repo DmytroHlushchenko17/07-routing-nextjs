@@ -28,10 +28,10 @@ export const fetchNotes = async (
 ): Promise<FetchNotesResponse> => {
   const { page = 1, perPage = 12, search = "" } = params;
 
-  const response = await api.get<FetchNotesResponse>(`/notes`, {
+  const res = await api.get<FetchNotesResponse>(`/notes`, {
     params: { page, perPage, search: search || undefined },
   });
-  return response.data;
+  return res.data;
 };
 
 export const createNote = async (value: NoteCreate): Promise<Note> => {
@@ -50,16 +50,16 @@ export async function fetchNoteById(id: string): Promise<Note> {
 }
 
 export const getCategories = async (): Promise<Note[]> => {
-  const res = await api.get<Note[]>(`/notes/tag`);
-  console.log(res);
-  return res.data;
+  const { data } = await api.get<Note[]>(`/notes/tag`);
+  console.log(data);
+  return data;
 };
 
 export const getNotes = async (
   categoryId?: string | undefined
 ): Promise<Note[]> => {
-  const res = await api.get<Note[]>("/notes", {
+  const res = await api.get<FetchNotesResponse>("/notes", {
     params: { categoryId },
   });
-  return res.data;
+  return res.data.notes;
 };

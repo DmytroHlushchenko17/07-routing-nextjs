@@ -1,9 +1,8 @@
 import Link from "next/link";
 import css from "./SideBar.module.css";
-import { getCategories } from "@/lib/api";
 
-export default async function SideBarasync() {
-  const categories = await getCategories();
+export default async function SideBar() {
+  const tags = ["Work", "Personal", "Meeting", "Shopping", "Todo"];
 
   return (
     <ul className={css.menuList}>
@@ -12,10 +11,10 @@ export default async function SideBarasync() {
           All notes
         </Link>
       </li>
-      {categories.map((notes) => (
-        <li className={css.menuItem} key={notes.id}>
-          <Link href={`/notes/filter/${notes.id}`} className={css.menuLink}>
-            {notes.tag}
+      {tags.map((tag) => (
+        <li className={css.menuItem} key={tag}>
+          <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
+            {tag}
           </Link>
         </li>
       ))}

@@ -1,4 +1,4 @@
-import SideBar from "../../../../components/SideBar/SideBar";
+import SideBar from "@/components/SideBar/SideBar";
 
 const NotesSidebar = async () => {
   return (
