@@ -26,10 +26,10 @@ export interface NoteCreate {
 export const fetchNotes = async (
   params: FetchNotesParams
 ): Promise<FetchNotesResponse> => {
-  const { page = 1, perPage = 12, search = "" } = params;
+  const { page = 1, perPage = 12, search = "", tag } = params;
 
   const res = await api.get<FetchNotesResponse>(`/notes`, {
-    params: { page, perPage, search: search || undefined },
+    params: { page, perPage, search: search || undefined, tag },
   });
   return res.data;
 };

@@ -11,25 +11,30 @@ import Loader from "@/components/Loader/Loader";
 import ErrorMessage from "@/components/ErrorMessage/ErrorMessage";
 import { fetchNotes } from "@/lib/api";
 import { Toaster } from "react-hot-toast";
-import type { FetchNotesParams, FetchNotesResponse } from "@/types/note";
+import type {
+  FetchNotesParams,
+  FetchNotesResponse,
+  NoteTag,
+} from "@/types/note";
 import NoteList from "@/components/NoteList/NoteList";
 
 const PER_PAGE = 12;
 
 type Props = {
-  initialPage: number;
+  tag?: NoteTag;
 };
 
-export default function NotesClient({ initialPage }: Props) {
+export default function NotesClient({ tag }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [search, setSearch] = useState("");
   const [debouncedSearchQuery] = useDebounce(search, 500);
-  const [page, setPage] = useState(initialPage);
+  const [page, setPage] = useState(1);
 
   const queryParams: FetchNotesParams = {
     page,
     perPage: PER_PAGE,
     search: debouncedSearchQuery,
+    tag,
   };
 
   const { data, isPending, isError } = useQuery<FetchNotesResponse>({
